@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Reference VS Copy</title>
+  <style>
+    *{
+    margin: 0;
+    padding: 0;
+}
+body{
+    width: 100vw;
+    height: 100vh;
+    background-color: aquamarine;
+    display: flex;
+    justify-content: center;
+     align-items: center;
+}
+.container{
+     width: 50%;
+     height: 58%;
+     background-color: rgb(133, 17, 242);
+     text-align: center;
+     overflow: hidden;
+     border-top-right-radius: 2rem;
+     border-top-left-radius: 2rem;
+     box-shadow: 5px 4px 4px black;
+}
+.box1{
+    background-color: brown;
+    padding: 2rem 2rem;
+    font-size: bold;
+    font-size: 2rem;
+    color: white;
+}
+.box1 > h1{
+    font-size: 3rem;
+}
+.box2{
+    margin:1rem 0rem;
+    color: white;
+    text-align: left;
+    margin-left: 3rem;
+    font-size: bold;
+    font-size: 1.5rem;
+}
+.ulist{
+    margin-left: 1rem;
+    margin: 0.7rem 0rem;
+}
+  </style>
+</head>
+<body>
+   
+  <div class="container">
+    
+    <div class="box1">
+      <h1>Challenge 14</h1>
+      <p><em>Psst: have a look at the JavaScript Console</em> 💁</p>
+    </div>
+    <div class="box2">
+      <p >In this Challenge i learned about JS reference and copy 
+        or pass by reference and pass by value </p>
+     <p>and how to make copy of Objects and Arrays</p>
+    </div>
+  </div>
+
+
+  <script>
+    // start with strings, numbers and booleans
+     let age=20;
+     let age2=age;
+     console.log("age is : ",age , "age2 is : ",age2);
+     age=30;
+     console.log("age is : ",age , "age2 is : ",age2);
+    let name="haris"
+    let name2=name;
+    console.log("name is : ",name , "name2 is : ", name2);
+    name="khan";
+    console.log("name is : ",name , "name2 is : ", name2);
+    // Let's say we have an array
+    const players = ['Wes', 'Sarah', 'Ryan', 'Poppy'];
+
+    // and we want to make a copy of it.
+    const team=players;
+    console.log(players,team);
+
+    // You might think we can just do something like this:
+    //  team[3]="lux";
+    // however what happens when we update that array?
+
+    // now here is the problem!
+
+    // oh no - we have edited the original array too!
+
+    // Why? It's because that is an array reference, not an array copy. They both point to the same array!
+
+    // So, how do we fix this? We take a copy instead!
+    const team2=players.slice();
+    // one way
+
+    // or create a new array and concat the old one in
+     const team3=[].concat(players);
+    // or use the new ES6 Spread
+     const team4=[...players];
+     const team5=Array.from(players);
+    // now when we update it, the original one isn't changed
+    
+    // The same thing goes for objects, let's say we have a person object
+
+    // with Objects
+    const person = {
+      name: 'Wes Bos',
+      age: 80
+    };
+
+    // and think we make a copy:
+    const captain=person;
+    captain.number=90;
+
+    // how do we take a copy instead?
+    const cap2=Object.assign({},person,{number:100,age:23});
+    console.log(cap2);
+    cap2.num=30;
+    console.log(cap2);
+
+    // We will hopefully soon see the object ...spread
+    const cap3={...person};
+    // Things to note - this is only 1 level deep - both for Arrays and Objects. lodash has a cloneDeep method, but you should think twice before using it.
+    const hk={
+        name:"haris",
+        age:23,
+        social:{
+            twitter:'Haris khan',
+            facebook:'haris niazi'
+        }
+    }
+    // const hk2={...hk};
+    // hk2.social.facebook="Haris Niazi";
+   const hk3=JSON.parse(JSON.stringify(hk));
+   hk3.social.facebook="Haris Niazi";
+  </script>
+
+</body>
+</html>
